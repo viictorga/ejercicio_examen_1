@@ -6,19 +6,20 @@ import {USER_COLLECTIONS} from "../utils"
 
 
 
-export const createUser = async ( email: string, password: string) => {
+export const createUser = async ( email: string, password: string, username: string) => {
     const db = getDB();
     const toEncriptao = await bcrypt.hash(password, 10);
 
     const result = await db.collection<User>(USER_COLLECTIONS).insertOne({
         email,
         password: toEncriptao,
-        clothes: []
+        username,
+        coches: []
     });
 
     return result.insertedId.toString();
 }
-const asdf = "s"
+
 
 export const validateUser = async (email: string, password: string) => {
     const db = getDB();
