@@ -22,7 +22,7 @@ export const typeDefs = gql`
         findCocheById(id: String!): Coche!
     }
     type Mutation{
-        register(email: String!, password: String!): String!
+        register(email: String!, password: String!, username: String!): String!
         login(email: String!, password: String!): String!
         buyCoche(idCoche: String!): User!
         borrarCoche(idCoche:String!): Coche!

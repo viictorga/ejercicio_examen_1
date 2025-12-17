@@ -1,10 +1,11 @@
 import { User } from "../types";
-import { USER_COLLECTIONS } from "../utils";
+import { COCHE_COLLECTIONS, USER_COLLECTIONS } from "../utils";
 import { IResolvers } from "@graphql-tools/utils";
 import { getDB } from "../db/mongo";
 import { createUser, validateUser } from "../collection/users";
 import { signToken } from "../auth";
 import { addCoche, borrarCoche, buyCoche, findCocheById, findCoches } from "../collection/coches";
+import { ObjectId } from "mongodb";
 
 export const resolvers: IResolvers = {
 
@@ -45,6 +46,26 @@ export const resolvers: IResolvers = {
             return await borrarCoche(matriculaNueva, user);
         }
 
+    },
+    User: {
+        coches: async(parent: User)=>{
+            const db = getDB();
+            const arrayIds = parent.coches;
+
+            // Pasar de coches a ids
+
+            // const arrayCoches = parent.coches; // pensames que es un array de coches
+            // if(!arrayCoches) return []
+            // const arraycositis = arrayCoches?.map((n) =>n._id.toString())
+            // return arraycositis;
+
+
+            if(!arrayIds) return []
+            const arrayObjectId = arrayIds.map((n) => new ObjectId(n))
+            const arrayCochecitos2 = await db.collection(COCHE_COLLECTIONS).find({_id: {$in: arrayObjectId}}).toArray()
+            return arrayCochecitos2;
+        },
+        
     }
 
 
