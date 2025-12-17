@@ -27,7 +27,7 @@ $gte    → greater than or equal
 $lt     → less than
 $lte    → less than or equal
 
-$in     → array {$in: {coches: "9274"}}
+$in     → array {$in: {coches: "9274"}} -------------- {_id: {$in: arrayObjectId}}
 $nin    → contiene valores dentro de un array {$nin: {coches: "9274"}}
 
 filter -> en base a una condicion genera un booleano, si es true la "n" entra en el array resultante final, sino no entra
@@ -127,9 +127,8 @@ export const modificarMatricula = async(idCoche: string, matriculaNueva: string,
     }
     
     
-
     const coche2 = {...coche, matricula:matriculaNueva}
 
-    await db.collection(COCHE_COLLECTIONS).updateOne({_id: coche._id}, {$set: {matricula: matriculaNueva}})
+    await db.collection(COCHE_COLLECTIONS).updateMany({_id: coche._id}, {$set: {matricula: matriculaNueva}})
     return await db.collection(COCHE_COLLECTIONS).findOne({_id: coche._id})
 }

@@ -65,6 +65,10 @@ export const resolvers: IResolvers = {
             const arrayCochecitos2 = await db.collection(COCHE_COLLECTIONS).find({_id: {$in: arrayObjectId}}).toArray()
             return arrayCochecitos2;
         },
+        numeroDeCoches: (parent:User)=>{
+            const arrayCoches = parent.coches;
+            return arrayCoches?.length; 
+        }
         
     }
 

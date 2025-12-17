@@ -6,7 +6,7 @@ import {USER_COLLECTIONS} from "../utils"
 
 
 
-export const createUser = async ( email: string, password: string, username: string) => {
+export const createUser = async (email: string, password: string, username: string) => {
     const db = getDB();
     const toEncriptao = await bcrypt.hash(password, 10);
 

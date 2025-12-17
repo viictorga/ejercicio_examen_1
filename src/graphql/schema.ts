@@ -8,6 +8,7 @@ export const typeDefs = gql`
         email: String!
         username: String!
         coches: [Coche]!
+        numeroDeCoches: Int!
     }
     type Coche {
         _id: ID!
